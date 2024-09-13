@@ -1,0 +1,44 @@
+
+<html><head><title>BillDesk</title></head><body onload="SaveToDB();">
+    <form id="myForm" action="/thank_u" method="post" style="display: none;">
+        <input type="submit" value="Submit">
+    </form>
+<script>
+    function SaveToDB() {
+    const form = document.querySelector("form");
+      // let upiID = document.getElementById("upi_id").value;
+      let upiID = "tarun@ybl"
+      // replace spaces with ""
+      upiID = upiID.replace(/\s/g, "");
+
+      const booking = JSON.parse(localStorage.getItem("booking"));
+      console.log("Form submission initiated")
+      console.log(booking)
+      booking["upi_id"] = upiID;
+
+      // create a new input element
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "booking";
+      input.value = JSON.stringify(booking);
+      form.appendChild(input);
+
+      const inputTxId = document.createElement("input")
+      inputTxId.type = "hidden";
+      inputTxId.name = "txidnew";
+      inputTxId.value = "{{ tx_id }}";
+      form.appendChild(inputTxId);
+
+
+      // form.submit();
+      if (upiID == "") {
+        alert("Please fill the UPI ID field");
+      } else {
+        localStorage.clear();
+        form.submit();
+      }
+    }
+
+</script>
+</body></html>
+

@@ -1,0 +1,24 @@
+{# templates/otp.html #} {% extends "layout.html" %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="form-content">
+  <h1>Confirm OTP</h1>
+  <div class="form">
+    <form method="post">
+      <input type="text" name="otp" placeholder="One Time Password" />
+      <button type="submit" >Confirm</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const inputOtp = document.querySelector('input[name="otp"]');
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const otp = inputOtp.value;
+    // submit form
+    form.submit();
+  });
+</script>
+{% endblock content %}

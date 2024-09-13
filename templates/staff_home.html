@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woxsen Staff</title>
+  <link rel="stylesheet" href="/static/css/staff_home.css" />
+  <style>
+    /* Style for the toggle switch */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .toggle-label {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-bar">
+    <div class="nav-heading">
+      <a href="">Woxsen</a>
+    </div>
+
+    <div class="nav-items">
+      <div class="nav-item">
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+  <div id="staff_home">
+    <div class="container" style="margin-top: 10px">
+      <!-- only show today's entries -->
+      <!-- <div class="toggle-container">
+        <label class="toggle-label">Show Today's Entries:</label>
+        <input type="checkbox" id="toggleSwitch" checked>
+      </div> -->
+      <h1>Woxsen Student Transportation</h1>
+      <table class="rwd-table">
+        <tbody>
+          <tr>
+            <th>Travel Date</th>
+            <th>Bus ID</th>
+            <th>Bus No</th>
+            <th>Update Bus No</th>
+            <th>Total Seats</th>
+            <th>Fare</th>
+            <th>Additional Details</th>
+            <th>Total seats Booked</th>
+            <th>CSV File</th>
+            <th>Update Changes</th>
+            <th>Mail Details</th>
+            <!-- <th>Whatsapp Details</th> -->
+          </tr>
+          {% for bus_number,value in data.items() %} {% for travel_date, seats
+          in value.items()%}
+          <script>
+
+
+            // only today's entries or not
+
+
+            // Calculate the current date on the client side
+
+
+            var currentDate = new Date();
+            var day = currentDate.getDate();
+            var month = currentDate.getMonth() + 1; // Months are zero-based
+            var year = currentDate.getFullYear();
+
+            // Format it as YYYY-MM-DD (assuming you want this format)
+            var today_date = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+
+            // Compare it with the travel_date and set the not_today variable
+            var travelDate = '{{ travel_date }}';
+
+            // function openPopup() {
+            //   var popup = document.getElementById("popup");
+            //   popup.style.display = "block";
+            // }
+
+            // function closePopup() {
+            //   var popup = document.getElementById("popup");
+            //   popup.style.display = "none";
+            // }
+            // Conditionally disable the input field
+            if (travelDate === today_date) {
+              // If travel_date is today's date, display the <tr> element
+              document.write('<tr>');
+              document.write('<td data-th="Supplier Code" style="text-align: center;">{{travel_date}}</td>');
+              document.write('<td data-th="Bus ID " style="text-align: center;">{{seats[2]}}</td>');
+              document.write('<td data-th="Bus Number " style="text-align: center;">{{bus_number}}</td>');
+              document.write('<td data-th="Supplier Name" style="text-align: center;">');
+              document.write('<input type="text" name="bus_number" id="bn" placeholder="Bus Number" class="busN" data-busn="{{bus_number}}" />');
+              document.write('</td>');
+              document.write('<td data-th="Total Seats " style="text-align: center;">');
+              document.write('<input type="number" class="seats-input" value="{{seats[1]}}" data-date="{{travel_date}}" data-busn="{{bus_number}}" data-seats="{{seats[1]}}" />');
+              document.write('</td>');
+              document.write('<td data-th="Fare " style="text-align: center;">');
+              document.write('<input type="number" class="fare-input" value="{{seats[-1]}}" data-fare="{{seats[-1]}}" data-bus="{{bus_number}}" />');
+              document.write('</td>');
+              document.write('<td data-th="Additional Details" style="text-align: center;">');
+              document.write('<textarea class="textAreas" style="background-color: white" placeholder="Enter Additional Details like Driver name, number and boarding points"></textarea>');
+              document.write('</td>');
+              document.write('<td data-th="Seats Booked " style="text-align: center;">{{seats[0]}}</td>');
+              document.write('<td data-th="CSV file " style="text-align: center;">');
+              document.write('<a href="/csv?date={{travel_date}}&bus_number={{bus_number}}" download>Download</a>');
+              document.write('</td>');
+              document.write('<td data-th="Update Changes " style="text-align: center;">');
+              document.write('<button data-date="{{travel_date}}" data-bus="{{bus_number}}" class="disabled savebtn">save</button>');
+              document.write('</td>');
+              document.write('<td data-th="Mail Details " style="text-align: center;">');
+              document.write('<button class="mails" data-busn="{{bus_number}}" data-date="{{travel_date}}" style="background-color: #0072C6">Mail</button>');
+              // document.write('</td>');
+              // document.write('<td data-th="WhatsApp " style="text-align: center;">');
+              // document.write('<button class="whats" data-busn="{{bus_number}}" data-date="{{travel_date}}" style="background-color: #075e54">WhatsApp</button>');
+              // document.write('</td>');
+              document.write('</tr>');
+            }
+              // console.log(inputField)
+          </script>
+          <!-- <tr>
+              <td data-th="Supplier Code">{{travel_date}}</td>
+              <td>{{seats[2]}}</td>
+              <td>{{bus_number}}</td>
+              <td data-th="Supplier Name">
+                <input 
+                type="text" 
+                name="bus_number" 
+                id="bn" 
+                placeholder="Bus Number"
+                class="busN"
+                disabled= false
+                />
+              </td>
+              <td data-th="Invoice Number">
+                <input
+                  type="number"
+                  class="seats-input"
+                  value="{{seats[1]}}"
+                  data-date="{{travel_date}}"
+                  data-seats="{{seats[1]}}"
+                />
+              </td>
+              <td data-th="Invoice Number">
+                <input
+                  type="number"
+                  class="fare-input"
+                  value="{{seats[-1]}}"
+                  data-fare="{{seats[-1]}}"
+                  data-bus="{{bus_number}}"
+                />
+              </td>
+              <td data-th="Invoice Number">{{seats[0]}}</td>
+              <td data-th="Invoice Number">
+                <a
+                  href="/csv?date={{travel_date}}&bus_number={{bus_number}}"
+                  download
+                >
+                  Download
+                </a>
+              </td>
+              <td>
+                <button data-date="{{travel_date}}" data-bus="{{bus_number}}" class="disabled">
+                  save
+                </button>
+              </td>
+            </tr> -->
+          {% endfor %} {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script defer>
+    // toggle today's entries code 
+    // const toggleSwitch = document.getElementById('toggleSwitch');
+
+    // toggleSwitch.addEventListener('change', function () {
+    //   const showTodayEntries = this.checked;
+
+    //   // Select the rows to toggle based on the class or other criteria
+    //   const rowsToToggle = document.querySelectorAll('tr[data-date="{{ travel_date }}"]');
+
+    //   rowsToToggle.forEach(row => {
+    //     if (showTodayEntries) {
+    //       row.style.display = 'table-row';
+    //     } else {
+    //       row.style.display = 'none';
+    //     }
+    //   });
+    // });
+    // toggle code end
+    let bn = ""
+    st = ""
+    let txtar = ""
+    // get all the input fields class name seats-input and type number
+    const inputs = document.querySelectorAll(".seats-input");
+    const buttons = document.querySelectorAll(".savebtn");
+    const busNumberInput = document.querySelectorAll(".busN");
+    const fareInputs = document.querySelectorAll(".fare-input");
+    const textAreas = document.querySelectorAll(".textAreas");
+    const mailbuttons = document.querySelectorAll(".mails")
+    const whatsbuttons = document.querySelectorAll(".whats")
+
+    mailbuttons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        console.log("Mail Button clicked!")
+        // console.log(`txtar : ${txtar}`)
+        const date = e.target.getAttribute("data-date");
+        const bus_number = e.target.getAttribute("data-busn");
+        const formattedTxtar = encodeURIComponent(txtar)
+        fetch(`/mail-details?date=${date}&bus_number=${bus_number}&additional_details=${formattedTxtar}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "success") {
+              alert("Details mailed successfully");
+            } else {
+              alert("Something went wrong");
+            }
+          });
+
+      })
+    })
+
+    // whatsbuttons.forEach((button) => {
+    //   button.addEventListener("click", (e) => {
+    //     console.log("WhatsApp Button clicked!")
+    //     const date = e.target.getAttribute("data-date");
+    //     const bus_number = e.target.getAttribute("data-busn");
+    //     const formattedTxtar = encodeURIComponent(txtar)
+    //     fetch(`/whatsapp-details?date=${date}&bus_number=${bus_number}&additional_details=${formattedTxtar}`)
+    //       .then((res) => res.json())
+    //       .then((data) => {
+    //         if (data.status === "success") {
+    //           alert("Details Whatsapped successfully");
+    //         } else {
+    //           alert("Something went wrong");
+    //         }
+    //       });
+    //   })
+    // })
+
+    textAreas.forEach((input) => {
+      input.addEventListener("input", (e) => {
+        txtar = input.value
+      })
+    })
+
+    // Update bus number event
+
+    busNumberInput.forEach((input) => {
+      input.addEventListener("input", (e) => {
+        // console.log(input.value)
+        // console.log(e.data)
+        // if (e.data == null) ;
+        // else bn += e.data
+        bn = input.value
+        // data attribute
+        // custom functionality
+        // const busNumber = document.getElementById("bn").value
+        const busNumber = e.target.getAttribute("data-busn")
+        // console.log(busNumber)
+        const date = e.target.getAttribute("data-date");
+
+        // get the button with the same date attribute
+        const button = document.querySelector(`button[data-bus="${busNumber}"]`);
+        // console.log(button)
+
+        // if (seats === e.target.value) {
+        //   // add disabled class 
+        //   if (button.classList.contains("disabled")) return
+        //   button.classList.add("disabled");
+        //   return;
+        // } else {
+        //   // remove disabled class
+        //   console.log(`Bus Number : ${busNumber} \n Date : ${date} \n Seats : ${seats}`)
+        //   if (!button.classList.contains("disabled")) return
+        console.log(bn)
+        if (bn == null || bn == "" || bn == undefined) button.classList.add("disabled");
+        else button.classList.remove("disabled");
+        // }
+      });
+    });
+
+    // add event listener to each input field
+    inputs.forEach((input) => {
+      input.addEventListener("input", (e) => {
+        // data attribute
+        // custom functionality
+        const busNumber = e.target.getAttribute("data-busn")
+        const date = e.target.getAttribute("data-date");
+        const seats = e.target.getAttribute("data-seats");
+
+
+
+        // get the button with the same date attribute
+        // const button = document.querySelector(`button[data-date="${date}"]`);
+        const button = document.querySelector(`button[data-bus="${busNumber}"]`);
+
+        if (seats === e.target.value) {
+          // add disabled class 
+          if (button.classList.contains("disabled")) return
+          button.classList.add("disabled");
+          return;
+        } else {
+          // remove disabled class
+          console.log(`Bus Number : ${busNumber} \n Date : ${date} \n Seats : ${seats}`)
+          st = e.target.value
+          // console.log(e.target.value)
+          if (!button.classList.contains("disabled")) return
+          button.classList.remove("disabled");
+        }
+      });
+    });
+
+    fareInputs.forEach((e) => {
+      e.addEventListener("input", (e) => {
+        // data attribute
+        const bus_number = e.target.getAttribute("data-bus");
+        const fare = e.target.getAttribute("data-fare");
+
+        // get the button with the same date attribute
+        const button = document.querySelector(`button[data-bus="${bus_number}"]`);
+
+        if (fare === e.target.value) {
+          // add disabled class
+          if (button.classList.contains("disabled")) return
+          button.classList.add("disabled");
+          return;
+        } else {
+          // remove disabled class
+          if (!button.classList.contains("disabled")) return
+          button.classList.remove("disabled");
+        }
+      });
+    })
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        // if button has disabled class return
+        if (button.classList.contains("disabled")) return;
+
+        // data attribute
+        const date = e.target.getAttribute("data-date");
+
+        // get the button with the same date attribute
+        const input = document.querySelector(`input[data-date="${date}"]`);
+
+
+        // get the fare input
+        fareInput = document.querySelector(`input[data-bus="${button.getAttribute("data-bus")}"]`)
+
+        const bus_number = fareInput.getAttribute("data-bus");
+
+        // console.log(`Bus Number : ${bus_number} \n Date : ${date} \n Seats : ${st}`)
+
+        // if input value is greater than 40 return
+        if (input.value > 40) {
+          alert("Seats cannot be greater than 40");
+          input.value = input.getAttribute("data-seats");
+          return;
+        }
+
+        // if input value is less than 0 return
+        if (input.value < 0) {
+          alert("Seats cannot be less than 0");
+          return;
+        }
+        console.log(`bus_number : ${bus_number}`)
+        console.log(`input.value : ${input.value}`)
+        if (bn == "" || bn == null || bn == undefined) bn = bus_number
+        if (st == "" || st == null || st == undefined) st = input.value
+        console.log(`BN value : ${bn}`)
+        console.log(`ST value : ${st}`)
+        // console.log("Values before sending to route:")
+        // console.log(`Date : ${date}\nBus number : ${bus_number}\nupdated Bus number : ${bn}\nseats : ${st}`)
+        fetch(`/update-bus-info?date=${date}&bus_number=${bus_number}&seats=${st}&fare=${fareInput.value}&updated_bus_number=${bn}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "success") {
+              alert("Data updated successfully");
+              input.setAttribute("data-seats", input.value);
+              button.classList.add("disabled");
+            } else {
+              alert("Something went wrong");
+            }
+          });
+      });
+    });
+  </script>
+</body>
+
+</html>

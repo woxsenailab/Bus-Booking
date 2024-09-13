@@ -1,0 +1,14 @@
+create users table 
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    stu_id VARCHAR(255),
+    name VARCHAR(255),
+    mobile VARCHAR(15),
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
+    school VARCHAR(255),
+    role VARCHAR(50)
+);
+
+INSERT INTO users (stu_id, name, mobile, email, password, school, role) VALUES ("123456", "admin", "8978290172", "transport@woxsen.edu.in", "$rikanth@123", "woxsen", "staff");

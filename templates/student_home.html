@@ -1,0 +1,388 @@
+{# templates/student_home.html #} {% extends "common_layout.html" %} {% block
+content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="student_home">
+  <div class="search-bar">
+<div class="day-selector">
+      <select name="day-selector" id="day-selector">
+        <option value="home" selected>To City</option>
+        <option value="campus">To Campus</option>
+      </select>
+    <div style="width: 100%;height: 10px;"></div>
+    </div>
+    <div class="route-selector">
+      <details class="custom-select">
+        <summary class="radios">
+          <input
+            type="radio"
+            name="item"
+            id="default"
+            title="Select a route"
+            data-value="000"
+            checked
+          />
+
+          {% for route in routes%}
+          <input
+            type="radio"
+            name="item"
+            id="{{route.route_id}}"
+            data-value="{{route.route_id}}"
+            title="{{route.name}}"
+          />
+          {% endfor %}
+        </summary>
+        <ul class="list">
+          {% for route in routes%}
+          <li>
+            <label for="{{route.route_id}}">
+              {{route.name}}
+            </label>
+          </li>
+
+          {% endfor %}
+        </ul>
+      </details>
+    </div>
+
+    <div style="width: 100%;height: 10px;"></div>
+
+    <!-- date selector default today-->
+    <div class="date-selector" onclick="openCalender()">
+      <input type="date" id="date" name="date" onchange="onDateSelect(event)" disabled/>
+      <img
+        src="{{url_for('static', filename='/img/calendar.png')}}"
+        alt="calendar"
+      />
+      <span class="date-value"></span>
+    </div>
+
+    <div class="search-btn">
+      <button onclick="onSearchBtnClick()">Search</button>
+    </div>
+  </div>
+
+  <div id="search-results">
+    <div id="result-search">
+      <span> Please Search for a route </span>
+      <img src="{{ url_for('static', filename='img/bus.png')}}" alt="route" />
+      ...
+      <img src="{{ url_for('static', filename='img/route.png')}}" alt="route" />
+    </div>
+
+    <div class="result-search-main dis-none">
+      <div class="bus-cards">
+        <div class="bus-card">
+          <div class="item-1">
+            <div class="item-content">
+              <h3>TS07BP2324</h3>
+              <div class="bus-details">
+                <div class="start">
+                  <span>Woxsen</span>
+                  <span>10:00 AM</span>
+                </div>
+
+                <div class="travel-time">
+                  <hr />
+                </div>
+
+                <div class="end">
+                  <span>Madhapur</span>
+                  <span>11:30 AM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-2">hello</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // limit date selection to next two days
+  const dateElement = document.getElementById("date");
+  const dateValue = document.querySelector(".date-value");
+  const details = document.querySelector(".custom-select");
+  const daySelector = document.getElementById("day-selector");
+
+  const busCards = document.querySelector(".bus-cards");
+
+  let selectedDestination = "000";
+  let selectedDate = "";
+
+  // input type radio buttons
+  const radios = document.querySelectorAll("input[type=radio]");
+
+  // add event listener to each radio button
+  radios.forEach((radio) => {
+    radio.addEventListener("click", (e) => {
+      // get the value of the radio button
+      const value = e.target.title;
+      const dataValue = e.target.dataset.value;
+      const selDate = dateElement.value;
+
+      selectedDestination = dataValue;
+      selectedDate = selDate;
+
+      // remove open attribute from details element
+      details.removeAttribute("open");
+    });
+  });
+
+  const onSearchBtnClick = () => {
+    if (selectedDestination === "000") {
+      toggleSnackbar("Please select a route");
+      return;
+    }
+
+    const selDate = dateElement.value;
+
+    fetch(`search-buses?route=${selectedDestination}&date=${selDate}&day=${daySelector.value}`)
+      .then((res) => res.json())
+      .then((data) => {
+        // clear bus cards
+        // console.log(data.data[0].available_seats)
+        busCards.innerHTML = "";
+
+        const resultSearch = document.getElementById("result-search");
+        const searchBusMain = document.querySelector(".result-search-main");
+
+        // add class dis-none to search bus main
+        resultSearch.classList.add("dis-none");
+        // remove class dis-none from search bus main
+        searchBusMain.classList.remove("dis-none");
+
+        // if user selected current date then don't allow user to book bus for past time
+        // console.log(selectedDate === new Date().toISOString().substr(0, 10));
+
+        data.data.forEach((bus) => {
+          const busCard = createBusCard(bus);
+          busCards.appendChild(busCard);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // set date value to today
+  dateValue.innerHTML =
+    getDayName(new Date().getDay()) +
+    ", " +
+    new Date().getDate() +
+    " " +
+    getMonthName(new Date().getMonth());
+
+  dateElement.value = new Date().toISOString().substr(0, 10);
+
+  limitDateSelection();
+
+  function openCalender() {
+    dateElement.showPicker();
+  }
+
+  function getDayName(day) {
+    var dayName;
+    switch (day) {
+      case 0:
+        dayName = "Sun";
+        break;
+      case 1:
+        dayName = "Mon";
+        break;
+      case 2:
+        dayName = "Tue";
+        break;
+      case 3:
+        dayName = "Wed";
+        break;
+      case 4:
+        dayName = "Thu";
+        break;
+      case 5:
+        dayName = "Fri";
+        break;
+      case 6:
+        dayName = "Sat";
+        break;
+    }
+    return dayName;
+  }
+
+  function getMonthName(month) {
+    var monthName;
+    switch (month) {
+      case 0:
+        monthName = "Jan";
+        break;
+      case 1:
+        monthName = "Feb";
+        break;
+      case 2:
+        monthName = "Mar";
+        break;
+      case 3:
+        monthName = "Apr";
+        break;
+      case 4:
+        monthName = "May";
+        break;
+      case 5:
+        monthName = "Jun";
+        break;
+      case 6:
+        monthName = "Jul";
+        break;
+      case 7:
+        monthName = "Aug";
+        break;
+      case 8:
+        monthName = "Sep";
+        break;
+      case 9:
+        monthName = "Oct";
+        break;
+      case 10:
+        monthName = "Nov";
+        break;
+      case 11:
+        monthName = "Dec";
+        break;
+    }
+    return monthName;
+  }
+
+  function onDateSelect(e) {
+    // change date format to Tue, 12 Feb
+    // get date from date selector
+    var date = e.target.value;
+    // convert date to date object
+    var dateObj = new Date(date);
+    // get day from date object
+    var day = dateObj.getDay();
+    // get date from date object
+    var date = dateObj.getDate();
+    // get month from date object
+    var month = dateObj.getMonth();
+    // get year from date object
+    var year = dateObj.getFullYear();
+
+    // get day name from day number
+    dayName = getDayName(day);
+
+
+    // get month name from month number
+    var monthName = getMonthName(month);
+
+    // format date to Tue, 12 Feb
+    var formattedDate = dayName + ", " + date + " " + monthName;
+
+    dateValue.innerHTML = formattedDate;
+  }
+
+  function limitDateSelection() {
+    // user can select only next two days from today
+    // don't allow user to select previous dates or dates more than two days from today
+    var today = new Date();
+    // format date to yyyy-mm-dd
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + "-" + mm + "-" + dd;
+
+    dateElement.setAttribute("min", today);
+
+    var nextDay = new Date();
+    nextDay.setDate(nextDay.getDate() + 2);
+    var dd = String(nextDay.getDate()).padStart(2, "0");
+    var mm = String(nextDay.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = nextDay.getFullYear();
+    nextDay = yyyy + "-" + mm + "-" + dd;
+
+    dateElement.setAttribute("max", nextDay);
+  }
+
+  // mod
+  function updateBookingState(element) {
+    // get attribute data-route from element
+    const bus_id = element.getAttribute("data-bus_id");
+    const available_seats = element.getAttribute("data-available_seats");
+    console.log(available_seats)
+
+    const booking = {
+      bus_id: bus_id,
+      seats: "",
+      date: dateElement.value,
+      passengers: [],
+      available_seats: available_seats,
+      day_type: daySelector.value,
+    };
+
+    // add booking to local storage
+    localStorage.setItem("booking", JSON.stringify(booking));
+  }
+
+  function createBusCard(data) {
+    const source = data.source.toUpperCase();
+    const destination = data.destination;
+    const startTime = data.start_time;
+    let locations = data.locations.join(", ")
+    const r_locations = data.locations.reverse()
+    const fare = data.fare;
+    const busNumber = data.bus_number;
+    const availableSeats = data.available_seats;
+    const bus_id = data.bus_id;
+
+    const busCard = document.createElement("div");
+    busCard.classList.add("bus-card");
+
+    // get Day
+
+    // const currentDate = new Date();
+    // const currentDayIndex = currentDate.getDay(); // Returns a number from 0 (Sunday) to 6 (Saturday)
+    // console.log(currentDate.getDay())
+
+    const item = `
+            <div class="item-1">
+              <div class="item-content">
+                <h3 style='text-decoration: underline;'>${daySelector.value == "home" ? source : destination.toUpperCase()} TO ${daySelector.value == "home" ? destination.toUpperCase() : source} </h3>
+                
+                <div class="bus-details">
+                  <div class="start">
+                    <span>TRIP START</span>
+                    <span>${startTime}</span>
+                    <span>(${daySelector.value == "home" ? locations : r_locations})</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+        <div class="item-2">
+            
+            <div class="item-content">
+                <div class="fare">
+                    <h6 class="subheading">Fare</h6>
+                    <h3>Rs. ${fare}</h3>
+                </div>
+                <div class="book-btn">
+                    <h5 class="subheading">${availableSeats} Seats Available</h5>
+                    <a style='text-decoration: none; color: white;' href='/book-seat'>
+                    <button class="button-27" role="button" onclick="updateBookingState(this);" data-bus_id=${bus_id} data-available_seats=${availableSeats}>
+                        Continue
+                    </button>
+                    </a>
+                </div>
+            </div>
+          
+        </div>
+      `;
+
+    busCard.innerHTML = item;
+
+    return busCard;
+  }
+</script>
+
+{% endblock content %}

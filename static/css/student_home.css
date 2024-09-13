@@ -1,0 +1,484 @@
+#student_home {
+    height: auto;
+    width: 100%;
+}
+
+
+
+#student_home .search-bar {
+    display: flex;
+    padding: 10px 10px;
+    column-gap: 10px;
+    user-select: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+} 
+
+
+#day-selector {
+    height: 50px;
+    border-radius: 6px;
+    width: 140px;
+    margin-top: 10px;
+    border: 1px solid #ddd
+}
+
+
+.route-selector details {
+    position: relative;
+    width: 300px;
+    margin-right: 1rem;
+}
+
+.route-selector details[open] {
+    z-index: 1;
+}
+
+details summary {
+	padding: 1rem;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #fff;
+	list-style: none;
+    border: 1px solid #ddd;
+}
+
+details summary::-webkit-details-marker {
+	display: none;
+}
+
+details[open] summary:before {
+	content: '';
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	background: transparent;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+summary:after {
+	content: '';
+	display: inline-block;
+	float: right;
+	width: .5rem;
+	height: .5rem;
+	border-bottom: 1px solid currentColor;
+	border-left: 1px solid currentColor;
+	border-bottom-left-radius: 2px;
+	transform: rotate(45deg) translate(50%, 0%);
+	transform-origin: center center;
+	transition: transform ease-in-out 100ms
+}
+
+summary:focus {
+	outline: none;
+}
+
+details[open] summary:after {
+	transform: rotate(-45deg) translate(0%, 0%);
+}
+
+ul {
+	width: 100%;
+	background: #fff;
+	position: absolute;
+	top: calc(100% + .5rem);
+	left: 0;
+	padding: 1rem;
+	margin: 0;
+	box-sizing: border-box;
+	border-radius: 5px;
+	max-height: 200px;
+	overflow-y: auto;
+    border: 1px solid #ddd;
+}
+
+li {
+	margin: 0;
+	padding: 1rem 0;
+	border-bottom: 1px solid #ddd;
+}
+
+li:first-child {
+	padding-top: 0;
+}
+
+li:last-child {
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+/* FAKE SELECT */
+
+summary.radios {
+	counter-reset: radios;
+}
+
+summary.radios:before {
+	content: var(--selection);
+}
+
+input[type=radio] {
+	counter-increment: radios;
+	appearance: none;
+	display: none;
+}
+
+input[type=radio]:checked {
+	display: inline;
+	--display: block;
+}
+
+input[type=radio]:after {
+	content: attr(title);
+	display: inline;
+	font-size: 1rem;
+}
+
+ul.list {
+	counter-reset: labels;
+}
+
+ul.list li {
+    list-style: none;
+}
+
+label {
+	width: 100%;
+	display: flex;
+	cursor: pointer;
+	justify-content: space-between;
+}
+label img {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+}
+
+
+.date-selector {
+    position: relative;
+    height: inherit;
+    border: 1px solid #ddd;
+    width: fit-content;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: .7rem 1fr;
+    column-gap: 10px;
+    place-items: center;
+    user-select: none;
+    padding-inline: .5rem;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.date-selector input[type='date']{
+    cursor: pointer;
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.date-selector > img {
+    opacity: .5;
+}
+
+.search-bar .search-btn {
+    flex: 1;
+    text-align: end;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.search-bar button {
+    background-color: #004643;
+    appearance: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    width: 100px;
+    min-width: 64px;
+    height: 32px;
+    padding: 0 16px;
+    font-weight: 600;
+    margin: 0;
+    min-width: 0;
+    outline: none;
+    touch-action: manipulation;
+}
+
+.bus-cards {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+
+.bus-cards .bus-card{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80%;
+    padding: 1rem;
+}
+
+.bus-card .item-1 {
+    flex: 1;
+    border-right: 1px solid #ddd;
+}
+
+.bus-card .item-1 .item-content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: .8rem;
+}
+.bus-card .item-2 .item-content {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    row-gap: 1rem;
+    justify-content: space-between;
+}
+
+.bus-card .item-2 .item-content .fare {
+    text-align: end;
+}
+.bus-card .item-2 .item-content .subheading {
+    font-size: .8rem;
+    color: #c4baba;
+    font-weight: 400;
+}
+.bus-card .item-2 .item-content .book-btn {
+    text-align: center;
+}
+
+.bus-details {
+    display: flex;
+    align-items: center;
+}
+
+.bus-details .start, .bus-details .end {
+    display: flex;
+    flex-direction: column;
+}
+
+.bus-details .start span, .bus-details .end  span {
+    font-size: .8rem;
+    color: #004643;
+    font-weight: 400;
+}
+
+.bus-details .travel-time {
+    font-size: 1.2rem;
+    color: #004643;
+    font-weight: 600;
+    margin: 0 1rem;
+    position: relative;
+    width: 100px;
+}
+
+
+
+.bus-details .start span:nth-child(2), .bus-details .end  span:nth-child(2)  {
+    font-size: 1.2rem;
+    color: #004643;
+    font-weight: 600;
+}
+
+
+.bus-card .item-2 {
+    flex: 0 1 200px;
+}
+
+
+.dis-none {
+    display: none !important;
+}
+
+#search-results {
+    height: 100%;
+    position: relative;
+}
+
+#search-results #result-search {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+#search-results #result-search span {
+    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+
+#search-results #result-search img {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-inline: .5rem;
+}
+
+
+
+/* CSS */
+.button-27 {
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 40px;
+  min-width: 0;
+  outline: none;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 80%;
+  will-change: transform;
+}
+
+.button-27:disabled {
+  pointer-events: none;
+}
+
+.button-27:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-27:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    #student_home .search-bar {
+      flex-direction: column; /* Stack elements vertically on smaller screens */
+    }
+  
+    #day-selector {
+      width: 100%; /* Full width for better mobile experience */
+      height: 35px;
+    }
+  
+    .route-selector details {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  
+    details summary {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    ul.list {
+      max-height: 150px; /* Reduced height for scrolling on mobile screens */
+    }
+  
+    .search-bar .search-btn {
+      text-align: center; /* Center align button on mobile screens */
+      margin-top: 10px; /* Add spacing between button and other elements */
+    }
+  
+    .bus-cards .bus-card {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  
+    .bus-card .item-1 {
+      border-right: none; /* Remove border on mobile screens */
+    }
+  
+    .bus-card .item-1 .item-content {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    .bus-card .item-2 .item-content {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    .bus-details .travel-time {
+      font-size: 1rem; /* Smaller font size for better mobile experience */
+    }
+  
+    .button-27 {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  }
+  /* Mobile Styles (Up to 320px) */
+@media (max-width: 320px) {
+    #student_home .search-bar {
+      flex-direction: column; /* Stack elements vertically on very small screens */
+    }
+  
+    #day-selector {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  
+    .route-selector details {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  
+    details summary {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    ul.list {
+      max-height: 150px; /* Reduced height for scrolling on very small screens */
+    }
+  
+    .search-bar .search-btn {
+      text-align: center; /* Center align button on very small screens */
+      margin-top: 10px; /* Add spacing between button and other elements */
+    }
+  
+    .bus-cards .bus-card {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  
+    .bus-card .item-1 {
+      border-right: none; /* Remove border on very small screens */
+    }
+  
+    .bus-card .item-1 .item-content {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    .bus-card .item-2 .item-content {
+      padding: 0.5rem; /* Smaller padding for better mobile experience */
+    }
+  
+    .bus-details .travel-time {
+      font-size: 1rem; /* Smaller font size for better mobile experience */
+    }
+  
+    .button-27 {
+      width: 100%; /* Full width for better mobile experience */
+    }
+  }
+  

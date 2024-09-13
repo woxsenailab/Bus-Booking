@@ -1,0 +1,88 @@
+{# templates/base.html #}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+
+    <!-- set favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      body {
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ url_for('static', filename='img/bg_login1.jpg')}}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- <div id="snackbar">
+      <p id="snackbar-text"></p>
+    </div> -->
+    <div class="layout__header">
+      <div class="woxsen__logo__container">
+        <span style="margin-right: 20px;"></span>
+        <img src="/static/img/airc.png" class="woxsen__logo" style="width: 150px; height: auto;"/>
+      </div>
+    </div>
+    
+      <!-- <div class="ai__logo__container">
+        <img src="/static/img/png" class="woxsen__logo"/>
+        <span style="margin-left: 20px;"></span>
+      </div> -->
+    </div>
+    <div class="layout__footer">
+      <p>Powered By AI Research Center</p>
+    </div>
+    {% block content %} {% endblock content %}
+    <script>
+        const snackbar = document.getElementById("snackbar");
+
+        function toggleSnackbar(message) {
+          // snackbar.classList.toggle("snackbar-show");
+          snackbar.classList.add("snackbar-show");
+          document.getElementById("snackbar-text").innerText = message;
+          setTimeout(() => {
+            snackbar.classList.remove("snackbar-show");
+          }, 2000);
+        }
+
+        function validateEmail(email) {
+          // mail should end with woxsen.edu.in
+          // ex: sree@woxsen.edu.in
+          const re = /^[\w-\.]+@woxsen\.edu\.in$/;
+          return re.test(email);
+        }
+
+        function validateAddress(address) {
+          const re = /\S+\s\S+/;
+          return re.test(address);
+        }
+
+        function validatePassword(password) {
+          // check if password is strong
+          if (password.length < 8) {
+            return false;
+          }
+
+          // password should contain at least one number and one letter and one special character
+          const re =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+          return re.test(password);
+        }
+
+        {% if error %}
+          toggleSnackbar("{{ error }}");
+      {% endif %}
+    </script>
+  </body>
+</html>

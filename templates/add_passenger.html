@@ -1,0 +1,83 @@
+{# templates/student_home.html #} {% extends "common_layout.html" %} {% block
+content %}
+
+<div class="passenger-details">
+  <div class="passenger-detail-heading">
+    <h3>Select seats to proceed</h3>
+  </div>
+
+  <div class="allPassenger"></div>
+
+  <div class="text-center p-2">
+    <button onclick="proceedToPayment()">Proceed to payment</button>
+  </div>
+</div>
+
+<script>
+  function create_passenger_element(index) {
+    const passenger = document.createElement("div");
+    passenger.classList.add("passenger");
+    passenger.innerHTML = `
+            <h4>Passenger ${index}</h4>
+            <input type="text" placeholder="Full Name" id='passenger${index}'/>
+            <input type="email" placeholder="Passenger Mail (optional)"/>
+        `;
+    return passenger;
+  }
+
+  function start() {
+    const allPassenger = document.querySelector(".allPassenger");
+
+    const booking = JSON.parse(localStorage.getItem("booking"));
+
+    const seats = booking.seats; 
+    // seats = 2;
+
+    Array.from({ length: seats }).forEach((_, index) => {
+      const passenger = create_passenger_element(index + 1);
+      allPassenger.appendChild(passenger);
+    });
+  }
+
+  function proceedToPayment() {
+    // get all passenger details
+    const allPassenger = document.querySelectorAll(".passenger");
+
+    const booking = JSON.parse(localStorage.getItem("booking"));
+
+    const passengers = [];
+
+    allPassenger.forEach((passenger) => {
+      const name = passenger.querySelector("input").value;
+      const email = passenger.querySelector("input:nth-child(2)").value;
+
+      //   check if name is empty
+      if (!name) {
+        alert("Please enter passenger name");
+        return;
+      }
+
+      passengers.push({
+        name,
+        email,
+      });
+    });
+
+    booking.passengers = passengers;
+
+    localStorage.setItem("booking", JSON.stringify(booking));
+    // create a tag with href attribute value as /passenger-details
+    const a = document.createElement("a");
+    a.href = `/payment`;
+
+    // add a tag to the body
+    document.body.appendChild(a);
+
+    // click on the a tag
+    a.click();
+  }
+
+  start();
+</script>
+
+{% endblock content %}

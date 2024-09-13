@@ -1,0 +1,92 @@
+{# templates/signup.html #} {% extends "layout.html" %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="form-content">
+  <h1>Woxsen Signup</h1>
+  <div class="form">
+    <form method="post">
+      <!-- <input type="text" name="username" placeholder="Username" /> -->
+      <input type="text" name="name" id="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Woxsem Mail" />
+      <input type="stu_id" name="stu_id" placeholder="Student ID" />
+      <input type="text" name="mobile" id="mobile" placeholder="Mobile" maxlength="10"/>
+      <select name="school" id="stu-school" style="padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; width: 340px;" onmouseover="this.style.borderColor='#333'" onmouseout="this.style.borderColor='#ccc'" onfocus="this.style.outline='none'; this.style.borderColor='#555'; this.style.boxShadow='0 0 5px rgba(0, 0, 0, 0.2)'" onblur="this.style.borderColor='#ccc'; this.style.boxShadow='none'">
+        <option value="School of Business">School of Business</option>
+        <option value="School of Technology">School of Technology</option>
+        <option value="School of Design">School of Design</option>
+        <option value="School of Architecture">School of Architecture</option>
+        <option value="School of Humanities">School of Humanities</option>
+        <option value="School of Sciences">School of Sciences</option>
+        <option value="School of Law">School of Law</option>
+    </select>    
+      <input type="password" name="password" placeholder="Password" />
+      <input type="password" name="cpassword" placeholder="Confirm Password" />
+      <button type="submit">Sign Up</button>
+      <p>Already have an acoount? <a href="login">Login Here</a></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Function to parse query parameters from the URL
+  function getQueryParam(parameterName) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(parameterName);
+  }
+
+  // Retrieve the 'error' query parameter
+  const error = getQueryParam('error');
+
+  // Now you can use the 'error' variable in your JavaScript code
+  if (error) {
+    console.log("Error message: " + error);
+    alert(error)
+    // Perform any actions with the error message
+  }
+  // const inputUsername = document.querySelector('input[name="username"]');
+  const inputName = document.querySelector('input[name="name"]');
+  const inputMobile = document.querySelector('input[name="mobile"]');
+  const inputstu_id = document.querySelector('input[name="stu_id"]');
+  const inputSchool = document.querySelector('select[name="school"]')
+  const inputEmail = document.querySelector('input[name="email"]');
+  const inputPassword = document.querySelector('input[name="password"]');
+  const inputCPassword = document.querySelector('input[name="cpassword"]');
+  // const inputRole = document.querySelector('input[name="password"]');
+
+  const btnLogin = document.querySelector("button[type='submit']");
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = inputName.value;
+    const stu_id = inputstu_id.value;
+    const mobile = inputMobile.value;
+    const school = inputSchool.value;
+    const email = inputEmail.value;
+    const password = inputPassword.value;
+    const cpassword = inputCPassword.value
+
+    // validate email
+    if (!validateEmail(email)) {
+      toggleSnackbar("Enter a valid email address");
+      btnLogin.classList.remove("btn-disabled");
+      return false;
+    }
+
+    if (password !== cpassword) {
+      alert("Passwords do not match");
+      return false;
+    }
+
+    console.log("Value to be sent:")
+    console.log(name)
+    console.log(mobile)
+    console.log(school)
+    console.log(email)
+    console.log(password)
+    console.log(stu_id)
+    // submit form
+    form.submit();
+  });
+</script>
+{% endblock content %}

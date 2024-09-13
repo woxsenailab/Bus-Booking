@@ -1,0 +1,246 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #0e0336; /* navabar background */
+    padding-block: 1rem;
+    color: #fff;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    user-select: none;
+}
+
+.nav-bar .nav-heading a {
+    font-size: 2rem;
+    margin-left: 20px;
+    color: #fff;
+}
+
+.nav-bar .nav-items {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    padding-inline: 2rem;
+    column-gap: 2rem;
+    align-items: flex-end;
+}
+
+
+.nav-bar .nav-items a {
+    padding: .4rem .8rem;
+    font-size: 1rem;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.nav-bar .nav-items .nav-item a:hover {
+    background-color: #004643;
+}
+
+.nav-bar .nav-items .nav-item:last-child {
+    flex: 1;
+    text-align: end;
+    font-size: 1rem;
+}
+
+.nav-bar .nav-items .nav-item:last-child a {
+    color: #004643;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:600,700';
+
+* {font-family: 'Open Sans', sans-serif;}
+
+.rwd-table {
+  margin: auto;
+  min-width: 300px;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+.rwd-table tr:first-child {
+  border-top: none;
+  background: #428bca;
+  color: #fff;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f9fc;
+}
+
+.rwd-table tr:nth-child(odd):not(:first-child) {
+  background-color: #ebf3f9;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  margin-top: .5em;
+}
+
+.rwd-table td:last-child {
+  margin-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #000;
+}
+
+.rwd-table th,
+.rwd-table td {
+  text-align: left;
+}
+
+.rwd-table {
+  color: #333;
+  border-radius: .4em;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #bfbfbf;
+}
+
+.rwd-table th,
+.rwd-table td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  .rwd-table tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  .rwd-table tr:hover:not(:first-child) {
+    background-color: #d8e7f3;
+  }
+  .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  .rwd-table th:first-child,
+  .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child,
+  .rwd-table td:last-child {
+    padding-right: 0;
+  }
+  .rwd-table th,
+  .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
+
+/* THE END OF THE IMPORTANT STUFF */
+
+/* Basic Styling */
+
+h1 {
+  text-align: center;
+  font-size: 2.4em;
+  color: rgb(10, 10, 10);
+}
+
+.container {
+  display: block;
+  text-align: center;
+}
+
+
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+
+button.disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+/* Add a media query for screens with a maximum width of 768px (typical for mobile devices) */
+@media screen and (max-width: 768px) {
+  body {
+      font-size: 16px; /* Increase the font size for better readability on small screens */
+  }
+
+  .nav-bar .nav-heading a {
+      font-size: 1.5rem; /* Reduce the heading font size */
+      margin-left: 10px;
+  }
+
+  .nav-bar .nav-items {
+      flex-direction: column; /* Stack the navigation items vertically */
+      align-items: center;
+      padding: 0; /* Remove horizontal padding */
+      column-gap: 0;
+      margin-top: 10px;
+  }
+
+  .nav-bar .nav-items .nav-item a {
+      padding: 8px 16px; /* Adjust padding for better touch interactions */
+  }
+
+  .container {
+      margin: 10px; /* Add some spacing around the content */
+  }
+  
+
+  .rwd-table {
+      font-size: 14px; /* Adjust font size for table content */
+  }
+  
+
+  /* Adjust other styles as needed for mobile layout */
+}

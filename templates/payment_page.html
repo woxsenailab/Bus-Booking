@@ -1,0 +1,60 @@
+{# templates/payment_page.html #} {% extends "common_layout.html" %} {% block
+content %}
+
+<html>
+  <head>
+    <script type="module" src="https://pay.billdesk.com/jssdk/v1/dist/billdesksdk/billdesksdk.esm.js"></script>
+      <script nomodule="" src="https://pay.billdesk.com/jssdk/v1/dist/billdesksdk.js"></script>
+      <link href="https://pay.billdesk.com/jssdk/v1/dist/billdesksdk/billdesksdk.css" rel="stylesheet">
+  </head>
+  
+  <article class="card" style="overflow-y: scroll">
+    <div class="container">
+      <div class="card-title">
+        <!-- <h2>Payment</h2> -->
+      </div>
+        <div class="card-body">
+          <div class="payment-type">
+            <h1 id="pay">Payment : Rs. 450</h1>
+          </div>
+          <br> <br>
+          <button class="button button-primary" onclick="launchBillDeskSDK()">Pay Now</button>
+        </div>
+    </div>
+  </article>
+
+  <script>
+    console.log("Testing no_of_seats")
+    let no_seats = JSON.parse('{{ no_of_seats|tojson|safe }}');
+    console.log(no_seats)
+    document.getElementById("pay").innerText = `Payment : Rs. ${no_seats*450}`
+    function launchBillDeskSDK() {
+        console.log("Launching Billdesk")
+        let flow_config = JSON.parse('{{ flow_config|tojson|safe }}');
+        console.log(`bdOrderId: ${flow_config.bdOrderId}`)
+        console.log(`flow config : ${flow_config}`)
+
+        var responseHandler = function (txn) {
+            console.log("callback received status:: ", txn.status);
+            console.log("callback received response:: ", txn.response);
+        };
+
+        var config = {
+            responseHandler: responseHandler,
+            flowType: "payments",
+            flowConfig : flow_config,
+            bdOrderId: flow_config.bdOrderId,
+            authToken: flow_config.authToken,
+            childWindow: false,
+            // returnUrl: "http://www.demo.com/api/pgresponse",
+            retryCount: 3
+        };
+
+        // BillDeskSDK.init(config);
+        window.loadBillDeskSdk(config)
+    }
+</script>
+</html>
+
+
+{% endblock content %}

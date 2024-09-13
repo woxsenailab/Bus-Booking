@@ -1,0 +1,53 @@
+{# templates/login.html #} {% extends "layout.html" %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="form-content">
+  <h1>Woxsen Login</h1>
+  <div class="form">
+    <form method="post">
+      <input type="email" name="email" placeholder="Email" />
+      <input type="password" name="password" placeholder="Password" />
+      <button type="submit" >Login</button>
+      <p>Don't have an acoount <a href="signup">Register Here</a></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Function to parse query parameters from the URL
+  function getQueryParam(parameterName) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(parameterName);
+  }
+
+  // Retrieve the 'error' query parameter
+  const error = getQueryParam('error');
+
+  // Now you can use the 'error' variable in your JavaScript code
+  if (error) {
+    console.log("Error message: " + error);
+    alert(error)
+    // Perform any actions with the error message
+  }
+  const inputEmail = document.querySelector('input[name="email"]');
+  const inputPassword = document.querySelector('input[name="password"]');
+  const btnLogin = document.querySelector("button[type='submit']");
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = inputEmail.value;
+    const password = inputPassword.value;
+
+    // validate email
+    if (!validateEmail(email)) {
+      toggleSnackbar("Enter a valid email address");
+      btnLogin.classList.remove("btn-disabled");
+      return false;
+    }
+
+    // submit form
+    form.submit();
+  });
+</script>
+{% endblock content %}

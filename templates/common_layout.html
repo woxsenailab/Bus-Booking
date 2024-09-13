@@ -1,0 +1,101 @@
+{# templates/common_layout.html #}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+
+    <!-- set favicon -->
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/favicon.ico') }}"
+    />
+
+    <link rel="stylesheet" href="/static/css/common_layout.css">
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/student_home.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/staff_home.css') }}"
+    />
+
+    <link rel="stylesheet" href="/static/css/seat_booking.css">
+
+    <link rel="stylesheet" href="/static/css/payement_page.css">
+  </head>
+
+  <body>
+    <div id="snackbar">
+      <p id="snackbar-text"></p>
+    </div>
+
+    <div class="nav-bar">
+      <!-- nav heading logo -->
+  
+      <div class="nav-heading">
+        <!-- <a href="">Woxsen</a> -->
+        <img style="height: 15%; width: 15%; margin-left: 20px;" src="/static//img//woxsen_logo.png" />
+      </div>
+  
+      <div class="nav-items">
+        <div class="nav-item">
+          <!-- <a href="/home" onclick="clearLocalsStorage()">Book</a> -->
+        </div>
+        <div class="nav-item">
+          <a href="/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+    {% block content %} {% endblock content %}
+    <script>
+        const snackbar = document.getElementById("snackbar");
+
+        function clearLocalsStorage() {
+          localStorage.clear();
+        }
+
+        function toggleSnackbar(message) {
+          // snackbar.classList.toggle("snackbar-show");
+          snackbar.classList.add("snackbar-show");
+          document.getElementById("snackbar-text").innerText = message;
+          setTimeout(() => {
+            snackbar.classList.remove("snackbar-show");
+          }, 2000);
+        }
+
+        function validateEmail(email) {
+          // mail should end with woxsen.edu.in
+          // ex: sree@woxsen.edu.in
+          const re = /^[\w-\.]+@woxsen\.edu\.in$/;
+          return re.test(email);
+        }
+
+        function validateAddress(address) {
+          const re = /\S+\s\S+/;
+          return re.test(address);
+        }
+
+        function validatePassword(password) {
+          // check if password is strong
+          if (password.length < 8) {
+            return false;
+          }
+
+          // password should contain at least one number and one letter and one special character
+          const re =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+          return re.test(password);
+        }
+
+        {% if msg %}
+          toggleSnackbar("{{ error }}");
+      {% endif %}
+    </script>
+  </body>
+</html>

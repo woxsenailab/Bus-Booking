@@ -1,0 +1,260 @@
+.passenger-details {
+  width: 80%;
+  margin-inline: auto;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.passenger-detail-heading {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.passenger {
+  padding: 1rem;
+}
+
+.passenger h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.passenger input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+}
+
+
+.field {
+  margin-bottom: 25px;
+}
+
+.field.full {
+  width: 100%;
+}
+
+.field.half {
+  width: calc(50% - 12px);
+}
+
+.field label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.field input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 2px solid #e8ebed;
+  display: block;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field input:placeholder {
+  color: #e8ebed !important;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row wrap;
+  align-items: center;
+}
+
+.flex.justify-end {
+  justify-content: end;
+}
+
+.card {
+  padding: 50px;
+  margin: 50px auto;
+  max-width: 850px;
+  background: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: 0px 24px 60px -1px rgba(37, 44, 54, 0.14);
+}
+
+.card .container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.card .card-title {
+  margin-bottom: 50px;
+}
+
+.card .card-title h2 {
+  margin: 0;
+}
+
+.card .card-body .payment-type,
+.card .card-body .payment-info {
+  margin-bottom: 25px;
+}
+
+.card .card-body .payment-type h4 {
+  margin: 0;
+}
+
+.card .card-body .payment-type .types {
+  margin: 25px 0;
+}
+
+.card .card-body .payment-type .types .type {
+  width: 30%;
+  position: relative;
+  background: #f2f4f7;
+  border: 2px solid #e8ebed;
+  padding: 25px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.card .card-body .payment-type .types .type:hover {
+  border-color: #28333b;
+}
+
+.card .card-body .payment-type .types .type:hover .logo,
+.card .card-body .payment-type .types .type:hover p {
+  color: #28333b;
+}
+
+.card .card-body .payment-type .types .type.selected {
+  border-color: #40b3ff;
+  background: rgba(64, 179, 255, 0.1);
+}
+
+.card .card-body .payment-type .types .type.selected .logo {
+  color: #40b3ff;
+}
+
+.card .card-body .payment-type .types .type.selected p {
+  color: #28333b;
+}
+
+.card .card-body .payment-type .types .type.selected::after {
+  content: '\f00c';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  top: -21px;
+  right: -21px;
+  background: #fff;
+  border: 2px solid #40b3ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .card-body .payment-type .types .type .logo,
+.card .card-body .payment-type .types .type p {
+  transition: all 0.5s ease;
+}
+
+.card .card-body .payment-type .types .type .logo {
+  font-size: 48px;
+  color: #8a959c;
+}
+
+.card .card-body .payment-type .types .type p {
+  margin-bottom: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #8a959c;
+}
+
+.card .card-body .payment-info .column {
+  width: calc(50% - 25px);
+}
+
+.card .card-body .payment-info .title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.card .card-body .payment-info .title .num {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 2px solid #40b3ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 12px;
+  font-size: 12px;
+}
+
+footer {
+  margin: 50px auto;
+  max-width: 850px;
+  text-align: center;
+}
+
+.button {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 15px 25px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  background: transparent;
+  border: 2px solid transparent;
+}
+
+.button.button-link {
+  padding: 0 0 2px;
+  margin: 0 25px;
+  border-bottom: 2px solid rgba(64, 179, 255, 0.5);
+  border-radius: 0;
+  opacity: 0.75;
+}
+
+.button.button-link:hover {
+  border-bottom: 2px solid #40b3ff;
+  opacity: 1;
+}
+
+.button.button-primary {
+  background: #40b3ff;
+  color: #fff;
+}
+
+.button.button-primary:hover {
+  background: #218fd9;
+}
+
+.button.button-secondary {
+  background: transparent;
+  border-color: #e8ebed;
+  color: #8a959c;
+}
+
+.button.button-secondary:hover {
+  border-color: #28333b;
+  color: #28333b;
+}
